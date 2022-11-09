@@ -1,6 +1,6 @@
 <button onclick="location.href='/memo/compose'">追加</button>
 <% @memos.each do |memo| %>
-  <li id="<%=@id=memo["id"]%>">
-    <a href="/memo/<%= @id %>"><%= memo["title"] %></a>
+  <li id="<%=memo['id']%>">
+    <a href="/memo/<%= memo['id'] %>"><%= h memo['title'] %></a>
   </li>
 <% end %>

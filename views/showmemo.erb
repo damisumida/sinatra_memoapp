@@ -1,7 +1,8 @@
-<h2><%= @title %></h2>
-<p><%= @memo %></p>
-<button onclick="location.href='/memo/<%= @id %>/edit'">変更</button>
-<form method="post" action="/memo/<%= @id %>">
+<h2><%= h(@memo['title']) %></h2>
+<p><%= h(@memo['memo']) %></p>
+<button onclick="location.href='/memo/<%= @memo['id'] %>/edit'">変更</button>
+<form method="post" action="/memo/<%= @memo['id'] %>">
   <input type="hidden" name="_method" value="DELETE">
   <input type='submit' value="削除">
 </form>
+<button type="button" onclick="history.back()">戻る</button>
