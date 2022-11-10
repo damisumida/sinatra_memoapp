@@ -8,3 +8,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem "sinatra"
 gem 'sinatra-reloader', '~> 1.0'
 gem "rubocop"
+gem 'erb_lint', require: false

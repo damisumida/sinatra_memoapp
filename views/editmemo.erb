@@ -1,6 +1,6 @@
 <form action="/memo/<%= @memo['id'] %>" method="post">
   <div class="input-memotitle">
-    <input type="text" id="title" name="title" value="<%= @memo['title'] %>"/>
+    <input type="text" id="title" name="title" value="<%= @memo['title'] %>">
   </div>
   <div class="input-memotext">
     <textarea name="memo" cols="30" rows="5"><%= @memo['memo'] %></textarea>

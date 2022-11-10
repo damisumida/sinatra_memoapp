@@ -1,4 +1,5 @@
-.bundle/.bundle/*
-.bundle/cache/*
+.bundle/.bundle
+.bundle/cache
 .bundle/vendor
 .bundle/config
+.erb-lint.yml

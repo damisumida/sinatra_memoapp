@@ -34,7 +34,6 @@ end
 get '/memo/:id' do
   id = params[:id]
   @memo = load_memo(id)
-  p @memo
   erb :showmemo
 end
 
@@ -59,7 +58,7 @@ delete '/memo/:id' do
     data['memos'].delete(memo) if id.to_i == memo['id']
   end
   write_data(data)
-  redirect to "/"
+  redirect to '/'
 end
 
 def calc_maxid(data)
@@ -80,7 +79,7 @@ def load_data
 end
 
 def load_memo(id)
-  memo = ""
+  memo = ''
   data = load_data
   data['memos'].each do |m|
     memo = m if m['id'] == id.to_i
@@ -90,8 +89,8 @@ end
 
 def create_rewrite_memos(id, rewrit_memo)
   data = load_data
-  data['memos'].each do |memo, i=0|
-    data['memos'][i+1] = rewrit_memo if id.to_i == memo['id']
+  data['memos'].each do |memo, i = 0|
+    data['memos'][i + 1] = rewrit_memo if id.to_i == memo['id']
   end
   data
 end
