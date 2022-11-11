@@ -71,7 +71,7 @@ end
 
 def load_data
   data = ''
-  File.open('db/data.json') do |file|
+  File.open('data/data.json') do |file|
     data = file.read
     data = JSON.parse(data)
   end
@@ -96,7 +96,7 @@ def create_rewrite_memos(id, rewrit_memo)
 end
 
 def write_data(data)
-  File.open('db/data.json', 'w') do |file|
+  File.open('data/data.json', 'w') do |file|
     file.write(JSON.generate(data))
   end
 end

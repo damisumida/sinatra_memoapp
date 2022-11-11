@@ -3,3 +3,4 @@
 .bundle/vendor
 .bundle/config
 .erb-lint.yml
+.rubocop.yml
