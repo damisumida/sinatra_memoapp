@@ -1,8 +1,10 @@
-<h2><%= h(@memo['title']) %></h2>
-<p><%= h(@memo['memo']) %></p>
-<button onclick="location.href='/memo/<%= @memo['id'] %>/edit'">変更</button>
+<div class="form-group">
+  <input type="text" class="form-control" id="title" name="title" value="<%= h @memo['title'] %>" readonly>
+  <textarea class="form-control" id="exampleFormControlTextarea1" name="memo" readonly><%= h @memo['memo'] %></textarea>
+</div>
+<button class="btn btn-success" onclick="location.href='/memo/<%= @memo['id'] %>/edit'">変更</button>
 <form method="post" action="/memo/<%= @memo['id'] %>">
   <input type="hidden" name="_method" value="DELETE">
-  <input type='submit' value="削除">
+  <input type='submit' class="btn btn-danger" value="削除">
 </form>
-<button type="button" onclick="history.back()">戻る</button>
+<button type="button" class="btn btn-light" onclick="history.back()">戻る</button>

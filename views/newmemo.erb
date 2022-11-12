@@ -1,11 +1,9 @@
 <form action="/memo/compose" method="post">
-  <div class="input-memotitle">
-    <input type="text" id="title" name="title">
+  <div class="form-group">
+    <input type="text" class="form-control" id="title" name="title" placeholder="タイトルを入力" required>
   </div>
-  <div class="input-memotext">
-    <textarea name="memo" cols="30" rows="5"></textarea>
+  <div class="form-group">
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="memo" placeholder="メモを入力"></textarea>
   </div>
-  <div>
-    <input type="submit" value="保存">
-  </div>
+  <input type="submit" class="btn btn-success" value="保存">
 </form>

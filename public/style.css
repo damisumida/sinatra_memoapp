@@ -1,0 +1,27 @@
+html {
+  min-height: 100%;
+}
+
+body {
+  background-color: beige;
+}
+
+h1 {
+  margin: 1% 5%;
+}
+
+li {
+  margin: 5%, 5%;
+}
+
+.list-group {
+  margin: 1% 0;
+}
+
+.main-content {
+  margin: 1% 5%;
+}
+
+.form-group {
+  margin: 0.5% 0;
+}

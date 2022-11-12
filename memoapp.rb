@@ -44,44 +44,38 @@ get '/memo/:id/edit' do
 end
 
 patch '/memo/:id' do
-  rewrit_memo = { 'id' => params[:id].to_i, 'title' => params[:title], 'memo' => params[:memo] }
-  rewrite_memos = create_rewrite_memos(params[:id], rewrit_memo)
+  id = params[:id].to_i
+  rewrit_memo = { 'id' => id, 'title' => params[:title], 'memo' => params[:memo] }
+  rewrite_memos = create_rewrite_memos(id, rewrit_memo)
   write_data(rewrite_memos)
   @memos = rewrite_memos['memos']
-  redirect to "/memo/#{params[:id]}"
+  redirect to "/memo/#{id}"
 end
 
 delete '/memo/:id' do
-  id = params[:id]
+  id = params[:id].to_i
   data = load_data
   data['memos'].each do |memo|
-    data['memos'].delete(memo) if id.to_i == memo['id']
+    data['memos'].delete(memo) if id == memo['id']
   end
   write_data(data)
   redirect to '/'
 end
 
 def calc_maxid(data)
-  id = 0
-  data['memos'].each do |item|
-    id = item['id'] if item['id'] > id.to_i
-  end
-  id += 1
+  id = data['memos'].map { |memo| memo['id'] }
+  id.max + 1
 end
 
 def load_data
-  data = ''
   File.open('data/data.json') do |file|
-    data = file.read
-    data = JSON.parse(data)
+    JSON.parse(file.read)
   end
-  data
 end
 
 def load_memo(id)
   memo = ''
-  data = load_data
-  data['memos'].each do |m|
+  load_data['memos'].each do |m|
     memo = m if m['id'] == id.to_i
   end
   memo

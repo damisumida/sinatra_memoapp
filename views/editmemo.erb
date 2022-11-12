@@ -1,13 +1,9 @@
 <form action="/memo/<%= @memo['id'] %>" method="post">
-  <div class="input-memotitle">
-    <input type="text" id="title" name="title" value="<%= @memo['title'] %>">
+  <div class="form-group">
+    <input type="text" class="form-control" id="title" name="title" value="<%= @memo['title'] %>" required>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="memo"><%= @memo['memo'] %></textarea>
   </div>
-  <div class="input-memotext">
-    <textarea name="memo" cols="30" rows="5"><%= @memo['memo'] %></textarea>
-  </div>
-  <div>
-    <input type="hidden" name="_method" value="patch">
-    <input type='submit' value="変更">
-  </div>
+  <input type="hidden" name="_method" value="patch">
+  <input type='submit' class="btn btn-success" value="変更">
 </form>
-<button type="button" onclick="history.back()">戻る</button>
+<button class="btn btn-light" onclick="history.back()">戻る</button>
