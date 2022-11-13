@@ -83,8 +83,8 @@ end
 
 def create_rewrite_memos(id, rewrit_memo)
   data = load_data
-  data['memos'].each do |memo, i = 0|
-    data['memos'][i + 1] = rewrit_memo if id.to_i == memo['id']
+  data['memos'].each_with_index do |memo, i|
+    data['memos'][i] = rewrit_memo if id == memo['id']
   end
   data
 end
