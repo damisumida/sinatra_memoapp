@@ -4,8 +4,7 @@
 
 # 利用方法
 ## インストール方法
-1. 緑色の `Code` ボタンを押してください。
-2. Cloneし保存してください。
+1. 任意のディレクトリにgit cloneし保存してください。
 
 ```
 $ git clone https://github.com/damisumida/sinatra_memoapp.git
