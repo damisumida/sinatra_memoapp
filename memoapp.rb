@@ -25,7 +25,7 @@ end
 post '/memo/compose' do
   data = load_data
   id = calc_maxid(data)
-  newmemo = { 'id' => id.to_i, 'title' => params[:title], 'memo' => params[:memo] }
+  newmemo = { 'id' => id, 'title' => params[:title], 'memo' => params[:memo] }
   data['memos'].push(newmemo)
   write_data(data)
   redirect to "/memo/#{id}"
@@ -64,10 +64,12 @@ end
 
 def calc_maxid(data)
   id = data['memos'].map { |memo| memo['id'] }
+  id = [0] if id.empty?
   id.max + 1
 end
 
 def load_data
+  create_datajson unless File.exist?('data/data.json')
   File.open('data/data.json') do |file|
     JSON.parse(file.read)
   end
@@ -92,5 +94,11 @@ end
 def write_data(data)
   File.open('data/data.json', 'w') do |file|
     file.write(JSON.generate(data))
+  end
+end
+
+def create_datajson
+  File.open('data/data.json', 'w') do |file|
+    file.write('{"memos":[]}')
   end
 end
