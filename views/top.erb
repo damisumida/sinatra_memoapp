@@ -1,8 +1,8 @@
-<button class="btn btn-success" onclick="location.href='/memo/compose'">追加</button>
+<a class="btn btn-success" href='/memo/compose'>追加</a>
 <div class="list-group">
-  <% @memos.each do |memo| %>
-    <li class="list-group-item" id="<%= memo['id'] %>">
-      <a href="/memo/<%= memo['id'] %>"><%= h memo['title'] %></a>
+  <% @memos.each do |key, value| %>
+    <li class="list-group-item">
+      <a href="/memo/<%= key %>"><%= h value['title'] %></a>
     </li>
   <% end %>
 </div>

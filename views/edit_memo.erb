@@ -1,4 +1,4 @@
-<form action="/memo/<%= @memo['id'] %>" method="post">
+<form action="/memo/<%= @id %>" method="post">
   <div class="form-group">
     <input type="text" class="form-control" id="title" name="title" value="<%= @memo['title'] %>" required>
     <textarea class="form-control" id="exampleFormControlTextarea1" name="memo"><%= @memo['memo'] %></textarea>

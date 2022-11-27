@@ -1,10 +1,10 @@
 <div class="form-group">
-  <input type="text" class="form-control" id="title" name="title" value="<%= h @memo['title'] %>" readonly>
-  <textarea class="form-control" id="exampleFormControlTextarea1" name="memo" readonly><%= h @memo['memo'] %></textarea>
+  <p class="form-control"><%= @memo['title'] %></p>
+  <p class="form-control" id="exampleFormControlTextarea1"><%= h @memo['memo'] %></p>
 </div>
-<button class="btn btn-success" onclick="location.href='/memo/<%= @memo['id'] %>/edit'">変更</button>
-<form method="post" action="/memo/<%= @memo['id'] %>">
+<a class="btn btn-success" href='/memo/<%= @id %>/edit'>変更</a>
+<form method="post" action="/memo/<%= @id %>">
   <input type="hidden" name="_method" value="DELETE">
   <input type='submit' class="btn btn-danger" value="削除">
 </form>
-<button type="button" class="btn btn-light" onclick="location.href='/'">一覧へ戻る</button>
+<a class="btn btn-light" href='/'>一覧へ戻る</a>

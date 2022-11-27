@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# myapp.rb
 require 'bundler/setup'
 require 'json'
 require 'rubygems'
@@ -14,81 +13,65 @@ helpers do
 end
 
 get '/' do
-  @memos = load_data['memos']
+  @memos = load_data
   erb :top
 end
 
 get '/memo/compose' do
-  erb :newmemo
+  erb :new_memo
 end
 
 post '/memo/compose' do
   data = load_data
   id = calc_maxid(data)
-  newmemo = { 'id' => id, 'title' => params[:title], 'memo' => params[:memo] }
-  data['memos'].push(newmemo)
+  data[id] = { 'title' => params[:title], 'memo' => params[:memo] }
   write_data(data)
-  redirect to "/memo/#{id}"
+  redirect "/memo/#{id}"
 end
 
 get '/memo/:id' do
-  id = params[:id]
-  @memo = load_memo(id)
-  erb :showmemo
+  @id = params[:id]
+  memos = load_data
+  @memo = memos[@id]
+  erb :show_memo
 end
 
 get '/memo/:id/edit' do
-  id = params[:id]
-  @memo = load_memo(id)
-  erb :editmemo
+  @id = params[:id]
+  memos = load_data
+  @memo = memos[@id]
+  erb :edit_memo
 end
 
 patch '/memo/:id' do
-  id = params[:id].to_i
-  rewrit_memo = { 'id' => id, 'title' => params[:title], 'memo' => params[:memo] }
-  rewrite_memos = create_rewrite_memos(id, rewrit_memo)
-  write_data(rewrite_memos)
-  @memos = rewrite_memos['memos']
-  redirect to "/memo/#{id}"
+  id = params[:id]
+  memos = load_data
+  new_memo = { 'title' => params[:title], 'memo' => params[:memo] }
+  memos[id] = new_memo
+  write_data(memos)
+  redirect "/memo/#{id}"
 end
 
 delete '/memo/:id' do
-  id = params[:id].to_i
+  id = params[:id]
   data = load_data
-  data['memos'].each do |memo|
-    data['memos'].delete(memo) if id == memo['id']
-  end
+  data.delete(id)
   write_data(data)
-  redirect to '/'
+  redirect '/'
 end
 
 def calc_maxid(data)
-  id = data['memos'].map { |memo| memo['id'] }
+  id = data.keys
+  id.map!(&:to_i)
   id = [0] if id.empty?
   id.max + 1
 end
 
 def load_data
-  create_datajson unless File.exist?('data/data.json')
+  create_file unless File.exist?('data/data.json')
   File.open('data/data.json') do |file|
     JSON.parse(file.read)
   end
-end
-
-def load_memo(id)
-  memo = ''
-  load_data['memos'].each do |m|
-    memo = m if m['id'] == id.to_i
-  end
-  memo
-end
-
-def create_rewrite_memos(id, rewrit_memo)
-  data = load_data
-  data['memos'].each_with_index do |memo, i|
-    data['memos'][i] = rewrit_memo if id == memo['id']
-  end
-  data
 end
 
 def write_data(data)
@@ -97,8 +80,8 @@ def write_data(data)
   end
 end
 
-def create_datajson
+def create_file
   File.open('data/data.json', 'w') do |file|
-    file.write('{"memos":[]}')
+    file.write('{}')
   end
 end
