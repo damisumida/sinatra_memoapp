@@ -6,7 +6,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 
-DATA_DIRECTORY_PATH = 'data/data.json'
+DATA_FILE_PATH = 'data/data.json'
 
 helpers do
   def h(text)
@@ -63,20 +63,19 @@ delete '/memo/:id' do
 end
 
 def calc_maxid(memos)
-  ids = memos.keys
-  ids = ids.map(&:to_i)
-  ids.empty? ? 1 : id.max + 1
+  ids = memos.keys.map(&:to_i)
+  ids.empty? ? 1 : ids.max + 1
 end
 
 def load_memos
-  write_data({}) unless File.exist?(DATA_DIRECTORY_PATH)
-  File.open(DATA_DIRECTORY_PATH) do |file|
+  write_data({}) unless File.exist?(DATA_FILE_PATH)
+  File.open(DATA_FILE_PATH) do |file|
     JSON.parse(file.read)
   end
 end
 
 def write_data(memos)
-  File.open(DATA_DIRECTORY_PATH, 'w') do |file|
+  File.open(DATA_FILE_PATH, 'w') do |file|
     file.write(JSON.generate(memos))
   end
 end
