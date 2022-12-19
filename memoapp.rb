@@ -31,9 +31,7 @@ post '/memo/compose' do
   conn = create_connection
   data = load_data(conn)
   id = calc_maxid(data)
-  query = 'INSERT INTO memo VALUES($1, $2, $3);'
-  param = [id, params[:title], params[:memo]]
-  write_data(conn, query, param)
+  insert_data(conn, id, params[:title], prams[:memo])
   redirect "/memo/#{id}"
 end
 
@@ -55,22 +53,18 @@ end
 
 patch '/memo/:id' do
   conn = create_connection
-  query = 'UPDATE memo SET title = $1, memo = $2 WHERE id = $3;'
-  param = [params[:title], params[:memo], params[:id]]
-  write_data(conn, query, param)
+  update_data(conn, params[:title], params[:memo], params[:id])
   redirect "/memo/#{params[:id]}"
 end
 
 delete '/memo/:id' do
   conn = create_connection
-  query = 'DELETE FROM memo WHERE id = $1;'
-  param = [params[:id]]
-  write_data(conn, query, param)
+  delete_data(conn, params[:id])
   redirect '/'
 end
 
 def create_connection
-  PG::Connection.new(user: USER, password: PASSWORD, dbname: DBNAME)
+  PG::Connection.connect(user: USER, password: PASSWORD, dbname: DBNAME)
 end
 
 def calc_maxid(data)
@@ -81,11 +75,29 @@ def calc_maxid(data)
 end
 
 def load_data(conn)
-  memos = Hash.new([])
+  memos = {}
   conn.exec('SELECT * FROM memo').each do |result|
-    memos[result['id']] = { 'title' => result['title'], 'memo' => result['memo'] }
+    memos[result['id']] = { title: result['title'], memo: result['memo'] }
   end
   memos
+end
+
+def insert_data(conn, id, title, memo)
+  query = 'INSERT INTO memo VALUES($1, $2, $3);'
+  param = [id, title, memo]
+  write_data(conn, query, param)
+end
+
+def update_data(conn, title, memo, id)
+  query = 'UPDATE memo SET title = $1, memo = $2 WHERE id = $3;'
+  param = [title, memo, id]
+  write_data(conn, query, param)
+end
+
+def delete_data(conn, id)
+  query = 'DELETE FROM memo WHERE id = $1;'
+  param = [id]
+  write_data(conn, query, param)
 end
 
 def write_data(conn, query, param)
