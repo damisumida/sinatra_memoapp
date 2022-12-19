@@ -8,7 +8,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 
 USER = 'testuser'
-PASSWORD = 'Pass1357'
 DBNAME = 'memoapp'
 
 helpers do
