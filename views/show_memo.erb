@@ -1,0 +1,10 @@
+<div class="form-group">
+  <p class="form-control"><%= h @memo['title'] %></p>
+  <p class="form-control" id="exampleFormControlTextarea1"><%= h @memo['memo'] %></p>
+</div>
+<a class="btn btn-success" href="/memo/<%= @id %>/edit">変更</a>
+<form method="post" action="/memo/<%= @id %>">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type='submit' class="btn btn-danger" value="削除">
+</form>
+<a class="btn btn-light" href="/">一覧へ戻る</a>

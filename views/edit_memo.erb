@@ -1,0 +1,9 @@
+<form action="/memo/<%= @id %>" method="post">
+  <div class="form-group">
+    <input type="text" class="form-control" id="title" name="title" value="<%= h @memo['title'] %>" required>
+    <textarea class="form-control" id="memo" name="memo"><%= h @memo['memo'] %></textarea>
+  </div>
+  <input type="hidden" name="_method" value="patch">
+  <input type='submit' class="btn btn-success" value="変更">
+</form>
+<a class="btn btn-light" href="/memo/<%= @id %>">戻る</a>
