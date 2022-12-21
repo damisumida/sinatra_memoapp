@@ -28,9 +28,7 @@ end
 
 post '/memo/compose' do
   conn = create_connection
-  data = load_data(conn)
-  id = calc_maxid(data)
-  insert_data(conn, id, params[:title], prams[:memo])
+  id = insert_data(conn, params[:title], params[:memo])
   redirect "/memo/#{id}"
 end
 
@@ -63,14 +61,7 @@ delete '/memo/:id' do
 end
 
 def create_connection
-  PG::Connection.connect(user: USER, password: PASSWORD, dbname: DBNAME)
-end
-
-def calc_maxid(data)
-  id = data.keys
-  id.map!(&:to_i)
-  id = [0] if id.empty?
-  id.max + 1
+  PG::Connection.connect(user: USER, dbname: DBNAME)
 end
 
 def load_data(conn)
@@ -81,10 +72,14 @@ def load_data(conn)
   memos
 end
 
-def insert_data(conn, id, title, memo)
-  query = 'INSERT INTO memo VALUES($1, $2, $3);'
-  param = [id, title, memo]
-  write_data(conn, query, param)
+def insert_data(conn, title, memo)
+  query = 'INSERT INTO memo(title, memo) VALUES($1, $2) RETURNING id;'
+  param = [title, memo]
+  id = ''
+  conn.exec_params(query, param).each do |result|
+    id = result['id']
+  end
+  id
 end
 
 def update_data(conn, title, memo, id)

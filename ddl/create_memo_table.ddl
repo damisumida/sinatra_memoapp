@@ -1,6 +1,6 @@
 CREATE TABLE memo(
-  id INTEGER not null,
-  title VARCHAR(30),
-  memo VARCHAR(150),
+  id serial,
+  title VARCHAR(30) not null,
+  memo VARCHAR(150) not null,
   PRIMARY KEY(id)
 );
