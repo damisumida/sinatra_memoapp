@@ -1,6 +1,6 @@
 <div class="form-group">
-  <p class="form-control"><%= h @memo['title'] %></p>
-  <p class="form-control" id="exampleFormControlTextarea1"><%= h @memo['memo'] %></p>
+  <p class="form-control"><%= h @memo[:title] %></p>
+  <p class="form-control" id="exampleFormControlTextarea1"><%= h @memo[:memo] %></p>
 </div>
 <a class="btn btn-success" href="/memo/<%= @id %>/edit">変更</a>
 <form method="post" action="/memo/<%= @id %>">

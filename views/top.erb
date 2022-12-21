@@ -2,7 +2,7 @@
 <div class="list-group">
   <% @memos.each do |id, memo| %>
     <li class="list-group-item">
-      <a href="/memo/<%= id %>"><%= h memo['title'] %></a>
+      <a href="/memo/<%= id %>"><%= h memo[:title] %></a>
     </li>
   <% end %>
 </div>
